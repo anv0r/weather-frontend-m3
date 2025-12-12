@@ -1,0 +1,50 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.place-card {
+    background: color(white);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: $card-shadow;
+    height: 100%;
+    @include card-hover;
+
+    &__body {
+        padding: 1.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__icon {
+        font-size: 4rem;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    &__title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: color(dark);
+        margin-bottom: 0.5rem;
+    }
+
+    &__temp {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: color(primary);
+    }
+
+    &__desc {
+        color: color(secondary);
+        text-transform: capitalize;
+        margin-bottom: 1.5rem;
+    }
+
+    &__action {
+    margin-top: auto; 
+    width: 100%;
+    }
+}

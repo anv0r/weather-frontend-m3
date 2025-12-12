@@ -1,11 +1,11 @@
-@use '../base/variables' as *;
+@use '../base/variables' as vars;
 
 .weather-app {
-    font-family: $font-stack;
-    background-color: color(light);
+    font-family: vars.$font-stack;
+    background-color: vars.color(light);
 
     &__header {
-        background-color: color(primary);
+        background-color: vars.color(primary);
         padding: 1rem 0;
     }
 
@@ -15,8 +15,8 @@
     }
 
     &__footer {
-        background-color: color(dark);
-        color: color(white);
+        background-color: vars.color(dark);
+        color: vars.color(white);
         padding: 1.5rem 0;
         text-align: center;
         margin-top: auto;

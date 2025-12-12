@@ -1,3 +1,5 @@
+@use '../base/variables' as vars;
+
 @mixin flex-center {
     display: flex;
     justify-content: center;
@@ -10,8 +12,8 @@
 
     &:hover {
         transform: translateY(-5px);
-        box-shadow: $hover-shadow;
-        border-color: color(primary);
+        box-shadow: vars.$hover-shadow;
+        border-color: vars.color(primary);
         cursor: pointer;
     }
 }

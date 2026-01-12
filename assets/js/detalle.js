@@ -6,43 +6,63 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+    const lugar = obtenerLugarPorId(idCiudad);
 
-    const nombresCiudades = {
-        1: "Santiago", 2: "Buenos Aires", 3: "Lima", 4: "Bogotá", 
-        5: "Madrid", 6: "New York", 7: "Tokio", 8: "Sydney", 
-        9: "Londres", 10: "París"
-    };
+    if (!lugar) {
+        window.location.href = 'index.html';
+        return;
+    }
 
     const tituloEl = document.getElementById('nombre-ciudad');
-    if (tituloEl) tituloEl.textContent = nombresCiudades[idCiudad] || `Ciudad #${idCiudad}`;
+    if (tituloEl) tituloEl.textContent = `${lugar.imagen} ${lugar.nombre}`;
 
     const contenedorSemana = document.getElementById('pronostico-semanal');
     if (contenedorSemana) {
-        const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-        const iconos = ['☀️', '⛅', '🌧️', '⛈️'];
-
-        contenedorSemana.innerHTML = dias.map(dia => {
-            const min = getRandom(5, 15);
-            const max = getRandom(20, 32);
-            const icono = iconos[getRandom(0, iconos.length)];
+        contenedorSemana.innerHTML = lugar.pronosticoSemanal.map(dia => {
+            let icono = "☁️";
+            if(dia.estado === "Soleado" || dia.estado === "Despejado") icono = "☀️";
+            if(dia.estado === "Lluvia") icono = "🌧️";
+            if(dia.estado === "Tormenta") icono = "⛈️";
+            if(dia.estado === "Parcial") icono = "⛅";
 
             return `
                 <div class="col-6 col-md-4 col-lg-3">
-                    <article class="forecast-card h-100">
-                        <div class="forecast-card__body d-flex flex-column justify-content-between h-100">
-                            <div>
-                                <h4 class="forecast-card__day">${dia}</h4>
-                                <div class="forecast-card__icon">${icono}</div>
-                            </div>
-                            <div class="forecast-card__temps mt-2">
-                                <span class="forecast-card__temp-high">${max}°</span> 
-                                <span class="forecast-card__temp-low text-muted">/ ${min}°</span>
-                            </div>
+                    <article class="forecast-card h-100 p-3 border rounded text-center bg-white shadow-sm">
+                        <h5 class="fw-bold">${dia.dia}</h5>
+                        <div class="display-6 my-2">${icono}</div>
+                        <p class="text-capitalize text-muted mb-2">${dia.estado}</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <span class="fw-bold text-danger">${dia.max}°</span> 
+                            <span class="fw-bold text-primary">${dia.min}°</span>
                         </div>
                     </article>
                 </div>
             `;
         }).join('');
+    }
+
+    const stats = calcularEstadisticas(lugar.pronosticoSemanal);
+    const contenedorStats = document.getElementById('contenedor-estadisticas');
+    
+    if (contenedorStats) {
+        contenedorStats.innerHTML = `
+            <div class="col-md-4">
+                <div class="card p-3 mb-2 shadow-sm border-0 bg-light">
+                    <h5 class="text-primary mb-3">🌡️ Temperaturas</h5>
+                    <p class="mb-1">Mínima: <strong>${stats.min}°C</strong></p>
+                    <p class="mb-1">Máxima: <strong>${stats.max}°C</strong></p>
+                    <p class="mb-0">Promedio: <strong>${stats.promedio}°C</strong></p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card p-3 h-100 shadow-sm border-0 bg-light">
+                    <h5 class="text-primary mb-3">📝 Resumen Semanal</h5>
+                    <p class="lead mb-2">${stats.resumen}</p>
+                    <small class="text-muted">
+                        Días soleados: ${stats.diasSoleados} | Días lluviosos: ${stats.diasLluviosos}
+                    </small>
+                </div>
+            </div>
+        `;
     }
 });

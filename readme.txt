@@ -1,30 +1,31 @@
-# clima world-frontend-m3
+# ClimaApp - Módulo 4 (Lógica con JavaScript)
 
-## Objetivos del Módulo 3
-* Implementar SASS para modularizar estilos.
-* Utilizar la metodología BEM para nombres de clases 
-* Optimizar la interacción JS con delegación de eventos.
+Este es mi proyecto para el Módulo 4. Tomé la maquetación que hice anteriormente y le agregué lógica con JavaScript para manejar datos y cálculos reales, en lugar de tener información estática en el HTML.
 
-## Tecnologías y Estructura SASS
-El proyecto utiliza una estructura de archivos SCSS organizada en carpetas, con colores centralizados mediante un mapa de SASS para facilitar la mantenibilidad.
+## Descripción
+Es una aplicación web para consultar el clima. Muestra un listado de ciudades y permite ver un detalle con el pronóstico semanal. El objetivo principal de esta versión fue practicar el uso de arreglos, objetos y manipulación del DOM.
 
-* `scss/base/`: Variables, Mixins (incluyendo optimización con `will-change`).
-* `scss/components/`: Estilos de componentes (Cards).
-* `scss/layout/`: Estructura global.
+## Estructura de Datos (Modelado)
+Para no depender del HTML, moví toda la información a un archivo JavaScript (`data.js`):
+* Uso un **arreglo de objetos** llamado `lugares` para guardar las ciudades.
+* Cada ciudad tiene sus propiedades (ID, nombre, temperatura actual) y un arreglo interno llamado `pronosticoSemanal`.
+* El pronóstico contiene la información detallada de los 7 días (mínima, máxima y estado del clima).
 
-## Metodología BEM
-Se aplicó BEM en toda la aplicación:
-* **Bloque:** `.weather-app`, `.place-card`, `.forecast-card`
-* **Elemento:** `.place-card__title`, `.forecast-card__day`
+## Estadísticas del Clima
+En la vista de detalle, el sistema recorre el arreglo del pronóstico y calcula automáticamente:
+* El **promedio** de temperatura de la semana.
+* Las temperaturas **mínima y máxima** absolutas.
+* Un conteo de cuántos días serán soleados o lluviosos.
+* Un **resumen textual** que cambia dinámicamente según el clima predominante (ej: "Semana ideal para salir" o "Semana inestable").
 
 ## Tecnologías
 * HTML5 Semántico
-* SCSS
+* CSS / SASS (con metodología BEM)
 * Bootstrap 5.3
-* JavaScript
+* JavaScript (ES6+)
 
-## Enlace al Repositorio Público
+## Enlace al Repositorio
 https://github.com/anv0r/weather-frontend-m3.git
 
-## Cómo Ejecutar
-Simplemente abre el archivo `index.html` en tu navegador.
+## Cómo ejecutarlo
+Simplemente abre el archivo `index.html` en tu navegador web.

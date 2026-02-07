@@ -1,31 +1,30 @@
-# ClimaApp - Módulo 4 (Lógica con JavaScript)
+# ClimaApp - Modulo 5
 
-Este es mi proyecto para el Módulo 4. Tomé la maquetación que hice anteriormente y le agregué lógica con JavaScript para manejar datos y cálculos reales, en lugar de tener información estática en el HTML.
+Esta es la actualizacion de mi proyecto para el Modulo 5. Lo principal que hice fue conectar la aplicacion a una API real para que los datos del clima sean verdaderos y reorganizar todo el codigo usando Clases, como pedia la rubrica.
 
-## Descripción
-Es una aplicación web para consultar el clima. Muestra un listado de ciudades y permite ver un detalle con el pronóstico semanal. El objetivo principal de esta versión fue practicar el uso de arreglos, objetos y manipulación del DOM.
+## Que hay de nuevo
+Deje de usar los datos inventados del modulo anterior. Ahora la app consulta el clima en tiempo real a internet. Tambien cambie la forma en que esta programado: pase de tener funciones sueltas a usar Programacion Orientada a Objetos.
 
-## Estructura de Datos (Modelado)
-Para no depender del HTML, moví toda la información a un archivo JavaScript (`data.js`):
-* Uso un **arreglo de objetos** llamado `lugares` para guardar las ciudades.
-* Cada ciudad tiene sus propiedades (ID, nombre, temperatura actual) y un arreglo interno llamado `pronosticoSemanal`.
-* El pronóstico contiene la información detallada de los 7 días (mínima, máxima y estado del clima).
+## La API que use
+Elegi Open-Meteo. Me parecio la mejor opcion porque es gratuita, bastante rapida y no pide registrarse ni usar claves (API Key), asi que es mas facil de probar.
 
-## Estadísticas del Clima
-En la vista de detalle, el sistema recorre el arreglo del pronóstico y calcula automáticamente:
-* El **promedio** de temperatura de la semana.
-* Las temperaturas **mínima y máxima** absolutas.
-* Un conteo de cuántos días serán soleados o lluviosos.
-* Un **resumen textual** que cambia dinámicamente según el clima predominante (ej: "Semana ideal para salir" o "Semana inestable").
+## Como organice el codigo (Clases)
+Para ordenar el proyecto dividi la logica en tres archivos principales:
 
-## Tecnologías
-* HTML5 Semántico
-* CSS / SASS (con metodología BEM)
-* Bootstrap 5.3
-* JavaScript (ES6+)
+* api.js: Aqui esta la clase WeatherAPI. Su unico trabajo es conectarse a Open-Meteo y traer la informacion.
+* app.js: Aqui esta la clase WeatherApp. Es la que maneja todo: recibe los datos, saca las cuentas del promedio semanal y decide si hay que mostrar alguna alerta (por ejemplo, si va a llover mucho).
+* config.js: Aca solamente guarde las coordenadas de las ciudades.
 
-## Enlace al Repositorio
+## Estadisticas y Alertas
+Ahora las estadisticas del detalle (como el promedio de temperatura) se calculan con los datos que llegan de la API. Ademas, agregue una funcion que muestra una alerta automatica si detecta lluvia o temperaturas extremas en el pronostico.
+
+## Tecnologias
+* HTML5 y CSS (SASS + BEM)
+* Bootstrap 5
+* JavaScript (ES6+, Async/Await y Clases)
+
+## Link al repositorio
 https://github.com/anv0r/weather-frontend-m3.git
 
-## Cómo ejecutarlo
-Simplemente abre el archivo `index.html` en tu navegador web.
+## Como probarlo
+Solo hace falta abrir el archivo index.html en el navegador.
